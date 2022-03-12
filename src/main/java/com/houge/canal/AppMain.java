@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
  * 注意⚠️ 下面的 "canal" 和 "redis-1" 都是主机名，请用当前看环境中的主机名或者IP代替
  * 程序启动后就定期地从canal中拉取数据，然后转换成一个JSON字符串，并以它为value，user_id为key，通过
  * Jedis客户端写入Redis
+ * 注意⚠️ 最通用的写法是将app server作为Kafka的消费者，而不是直接连接canal，否则可能有丢消息的风险！！
+ * 注意⚠️ 如何让消息尽快同步到下游DB或者消费是关键
  */
 public class AppMain {
     public static void main(String[] args) {

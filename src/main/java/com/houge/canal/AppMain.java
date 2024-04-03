@@ -31,7 +31,7 @@ public class AppMain {
             connector.subscribe(".*\\..*");
             connector.rollback();
             while (true) {
-                Message message = connector.getWithoutAck(batchSize); // 获取指定数量的数据
+                Message message = connector.getWithoutAck(batchSize); // 获取指定数量的数据.
                 long batchId = message.getId();
                 try {
                     int size = message.getEntries().size();
@@ -74,17 +74,17 @@ public class AppMain {
             for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                 if (eventType == CanalEntry.EventType.DELETE) { // 删除
                     printColumn(rowData.getBeforeColumnsList());
-                    jedis.del(row2Key("user_id", rowData.getBeforeColumnsList()));
+                    jedis.del(row2Key("id", rowData.getBeforeColumnsList()));
                 } else if (eventType == CanalEntry.EventType.INSERT) { // 插入
                     printColumn(rowData.getAfterColumnsList());
-                    jedis.set(row2Key("user_id", rowData.getAfterColumnsList()),
+                    jedis.set(row2Key("id", rowData.getAfterColumnsList()),
                               row2Value(rowData.getAfterColumnsList()));
                 } else { // 更新
                     System.out.println("before");
                     printColumn(rowData.getBeforeColumnsList());
                     System.out.println("after");
                     printColumn(rowData.getAfterColumnsList());
-                    jedis.set(row2Key("user_id", rowData.getAfterColumnsList()),
+                    jedis.set(row2Key("id", rowData.getAfterColumnsList()),
                               row2Value(rowData.getAfterColumnsList()));
 
                 }

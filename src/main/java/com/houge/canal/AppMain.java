@@ -31,7 +31,7 @@ public class AppMain {
             connector.subscribe(".*\\..*");
             connector.rollback();
             while (true) {
-                Message message = connector.getWithoutAck(batchSize); // 获取指定数量的数据.
+                Message message = connector.getWithoutAck(batchSize); // 获取指定数量的数据
                 long batchId = message.getId();
                 try {
                     int size = message.getEntries().size();
